@@ -1,6 +1,6 @@
 # Plant-Webapp
 ## Executive Summary
-This web application was designed to act in conjunction with one of of my previously developed IoT apps as a form of central database, information terminal, and potentially eventually a control system.
+This web application was designed to act in conjunction with one of of my previously developed IoT apps as a form of central database, information terminal, and potentially eventually a control system. The previous app allowed for realtime monitoring and control of a Aeroponic plant box for urban agriculture, and comes with a built in web interfaces but it is unable to store or display the information from multiple control devices. This Web app attempts to fix this by acting as a central database and access point.
 
 ## Installation
 ```bash
@@ -10,8 +10,8 @@ docker-compose run django bash
 #python manage.py createsuperuser
 ```
 Windows: navigate to directory in powershell
-```
-docker-build
+```bash
+docker-build .
 docker-compose run django bash
 #python manage.py migrate
 #python manage.py createsuperuser
@@ -27,6 +27,13 @@ Windows: navigate to directory in powershell
 docker-compose up
 ```
 Current prototype version has admin pages, and pages asociated with the databases
+
+Key webaddresses
+localhost/api/plant/
+localhost/api/plant/<plant#>/
+localhost/api/species/
+localhost/api/species/<species#>/
+locahost/admin
 
 ## User Stories
 
