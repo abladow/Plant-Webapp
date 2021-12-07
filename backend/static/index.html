@@ -15,49 +15,66 @@
 			display:block;
 		}
 
-      #container {
-        display: block;
-      }
+		#container {
+			display: block;
+		}
 
-      #boxes {
-        float: left;
-        width: 100%;
-      }
+		#boxes {
+			<!--- float: left; --->
+			width: 100%;
+		}
 
-      #toggles {
-        float: left;
-        width: 100%;
-        margin-top: 10px;
-      }
+		#toggles {
+			float: left;
+			width: 100%;
+			margin-top: 10px;
+		}
 
-      #info {
-        float: left;
-        margin-top: 5px;
-      }
+		#info {
+			float: left;
+			margin-top: 5px;
+		}
 
 
-      .box {
-        width: 500px;
-        height: 100px;
-        vertical-align: bottom;
-		margin-top: 20px;
-		margin-left: auto;
-		margin-right: auto;
-		background-color: PeachPuff;
-      }
+		.box {
+			width: 500px;
+			height: 100px;
+			vertical-align: bottom;
+			margin-top: 20px;
+			margin-left: auto;
+			margin-right: auto;
+			background-color: PeachPuff;
+		}
 
-      .outlined {
-        border: 1px solid;
-        border-color: black;
-      }
+		.outlined {
+			border: 1px solid;
+			border-color: black;
+		}
 
-      .round-edge {
-        border-radius: 15px;
-      }
+		.round-edge {
+			border-radius: 15px;
+		}
 
-      .cardinal {
-        background-color: #993333;
-      }
+		.cardinal {
+			background-color: #993333;
+		}
+		button {
+			width: 500px;
+			height: 100px;
+			vertical-align: bottom;
+			margin-top: 20px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		button:hover {
+			background: lightsalmon;
+		}
+		.center {
+		margin: auto;
+		width: 50%;
+		padding: 10px;
+		}
+}
 
 
      
@@ -73,21 +90,43 @@
       /* Step 2: Modifying CSS attributes with .css() */
       
 
-      /* Step 3: Adding/Removing classes using jQuery's .addClass() and .removeClass() */
+      /* Step 3: Adding/Removing classes using jQuery's .addClass() and .removeClass()
       $("#button_toggle_roundedges").click(function() {
         $(".box").each(function () { 
           $(this).toggleClass('round-edge');
         });
       });
+	  */
 
 	//code section in question
       $("#button_add_box").click(function() {
+		var button = document.createElement("button");
+		const newContent = document.createTextNode("Hi there and greetings!");
+		button.innerHTML = "Do Something";
+
+		// 2. Append somewhere
+		var body = document.getElementsByTagName("body")[0];
+		body.appendChild(button);
+		body.appendChild(newContent);
+
+		// 3. Add event handler
+		button.addEventListener ("click", function() {
+		  alert("did something");
+		});
+	  /*
         var new_box = document.createElement("div");
         var existingBoxes = $(".box").length;
+		
         $(new_box).attr("id", "box4");
+		
         $(new_box).addClass("box")
+		$(new_box).addClass("button")
         $(new_box).addClass("outlined")
+		
+		$(new_box).addClass("button")
+		$(new_box).addClass("button")
         $("#boxes").append(new_box);
+		*/
 		
 		
       });
@@ -96,19 +135,19 @@
     });
     </script>
   </head>
-  <body style="background-color:LemonChiffon;">
+  <body style="background-color:LemonChiffon;" class="center">
     <center><img src="plant.png" class="centerImage" alt="Trulli" width="400" height="333">
 
     <div id="container">
       
-      <div id="boxes">
+      <div id="boxes" class="Center">
 
-        <div id="box1" class="box outlined"></div>
+        <!---<div id="box1" class="box outlined"></div>--->
       </div>
      
     <div id="toggles">
       <h2>Toggles</h2>
-      <button id="button_toggle_roundedges">Toggle Rounded Borders</button>
+      <!---<button id="button_toggle_roundedges">Toggle Rounded Borders</button>--->
       <button id="button_add_box">Add a New Box</button>
     </div>
 
