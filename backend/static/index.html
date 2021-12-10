@@ -6,87 +6,112 @@
     <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
     <meta name="author" content="none">
     <style>
-		div{
-		margin-top: 50px;
-		}
-		.centerImage
+		div
 		{
-			text-align:center;
-			display:block;
-		}
+			margin-top: 50px;
+			}
+			.centerImage
+			{
+				text-align:center;
+				display:block;
+			}
 
-		#container {
-			display: block;
-		}
+			#container {
+				display: block;
+			}
 
-		#boxes {
-			<!--- float: left; --->
-			width: 100%;
-		}
+			#boxes {
+				<!--- float: left; --->
+				width: 100%;
+			}
 
-		#toggles {
-			float: left;
-			width: 100%;
-			margin-top: 10px;
-		}
+			#toggles {
+				float: left;
+				width: 100%;
+				margin-top: 10px;
+			}
 
-		#info {
-			float: left;
-			margin-top: 5px;
-		}
-
-
-		.box {
-			width: 500px;
-			height: 100px;
-			vertical-align: bottom;
-			margin-top: 20px;
-			margin-left: auto;
-			margin-right: auto;
-			background-color: PeachPuff;
-		}
-
-		.outlined {
-			border: 1px solid;
-			border-color: black;
-		}
-
-		.round-edge {
-			border-radius: 15px;
-		}
-
-		.cardinal {
-			background-color: #993333;
-		}
-		button {
-			width: 500px;
-			height: 100px;
-			vertical-align: bottom;
-			margin-top: 20px;
-			margin-left: auto;
-			margin-right: auto;
-		}
-		button:hover {
-			background: lightsalmon;
-		}
-		.center {
-		margin: auto;
-		width: 50%;
-		padding: 10px;
-		}
-}
+			#info {
+				float: left;
+				margin-top: 5px;
+			}
 
 
-     
+			.box {
+				width: 500px;
+				height: 100px;
+				vertical-align: bottom;
+				margin-top: 20px;
+				margin-left: auto;
+				margin-right: auto;
+				background-color: PeachPuff;
+			}
+
+			.outlined {
+				border: 1px solid;
+				border-color: black;
+			}
+
+			.round-edge {
+				border-radius: 15px;
+			}
+
+			.cardinal {
+				background-color: #993333;
+			}
+			button {
+				display: block;
+				font-size: 30px;
+				width: 500px;
+				height: 100px;
+				margin-top: 20px;
+				margin-left: auto;
+				margin-right: auto;
+				background-color: PeachPuff;
+			}
+			button:hover {
+				background: lightsalmon;
+			}
+			.center {
+			margin: auto;
+			width: 50%;
+			padding: 10px;
+			}
+			
+		}
     </style>
     <script src="http://code.jquery.com/jquery-1.5.min.js"></script>
     
     <script>
-
-    var colorCardinal = "rgb(153, 51, 51)"
-
+	console.log("1");
     $(document).ready(function() {
-
+		console.log("2");
+		button_add_box").click(function() {
+		//$.getJSON('/api/plant').then( result => {
+			//console.log("3");
+			result.forEach( r => {
+				
+				var button = document.createElement("button");
+				var count = 1;
+				var strong = "Planter " + count
+				button.innerHTML = strong;
+				button.innerHTML += '<img src="/static/plant.png" width="50" height="50"/>';
+				var body = document.getElementsByTagName("body")[0];
+				body.appendChild(button);
+				button.addEventListener ("click", function() {
+				//?id=r
+				window.location.href = "/static/test.html";
+				});	
+			//});	
+		//});
+		//document.getElementById("demo").innerHTML = 5 + 6;
+		});
+    
+		 
+		 
+             //do stuff with r
+             // e.g. r.id
+         
       /* Step 2: Modifying CSS attributes with .css() */
       
 
@@ -99,20 +124,25 @@
 	  */
 
 	//code section in question
-      $("#button_add_box").click(function() {
-		var button = document.createElement("button");
-		const newContent = document.createTextNode("Hi there and greetings!");
-		button.innerHTML = "Do Something";
+      //$("#button_add_box").click(function() {
+		
+		//var new_box = document.createElement("div");
+		//const newDiv = document.createElement("div");
+		//const newContent = document.createTextNode("Hi there and greetings!");
+		//button.innerHTML = "Do Something";
 
 		// 2. Append somewhere
-		var body = document.getElementsByTagName("body")[0];
-		body.appendChild(button);
-		body.appendChild(newContent);
+		
+		//newDiv.addClass("outlined")
+		//newDiv.appendChild(newContent);
+		//const currentDiv = document.getElementById("body");
+		//document.body.insertBefore(newDiv, currentDiv);
+		//body.appendChild(new_box);
+		
+		//body.appendChild(newContent);
 
 		// 3. Add event handler
-		button.addEventListener ("click", function() {
-		  alert("did something");
-		});
+		
 	  /*
         var new_box = document.createElement("div");
         var existingBoxes = $(".box").length;
@@ -128,15 +158,13 @@
         $("#boxes").append(new_box);
 		*/
 		
-		
-      });
-
+	});	
       
-    });
+
     </script>
   </head>
   <body style="background-color:LemonChiffon;" class="center">
-    <center><img src="plant.png" class="centerImage" alt="Trulli" width="400" height="333">
+    <center><img src="/static/plant.png" class="centerImage" alt="Trulli" width="400" height="333">
 
     <div id="container">
       
@@ -146,14 +174,12 @@
       </div>
      
     <div id="toggles">
-      <h2>Toggles</h2>
-      <!---<button id="button_toggle_roundedges">Toggle Rounded Borders</button>--->
+      
+      <!---<button id="button_toggle_roundedges">Toggle Rounded Borders</button>
       <button id="button_add_box">Add a New Box</button>
-    </div>
-
-   
-    </div>
-
-
+	<div id="demo"></div>
+	<script>
+	console.log("1");--->
+	</script>
   </body>
 </html>
