@@ -33,7 +33,12 @@ class ApiKeyAdmin(admin.ModelAdmin):
 class Plant(models.Model):
     name = models.CharField(max_length=5000, blank=False)
     age = models.IntegerField()
-    species = models.ForeignKey('Plant', on_delete=models.CASCADE)
+    species = models.ForeignKey('Species', on_delete=models.CASCADE)
+    water = models.IntegerField(default = '1',validators=[MinValueValidator(1), MaxValueValidator(1000)])
+    Humidity = models.IntegerField(default = '1',validators=[MinValueValidator(0), MaxValueValidator(100)])
+    Light = models.IntegerField(default = '1', validators=[MinValueValidator(1), MaxValueValidator(10)])
+    nutrient_amount = models.IntegerField(default = '1',validators=[MinValueValidator(1), MaxValueValidator(10)])
+    tempurature = models.IntegerField(default = '33',validators=[MinValueValidator(33), MaxValueValidator(100)])
     
 
 class Species(models.Model):
@@ -48,5 +53,6 @@ class Species(models.Model):
     water_requirement = models.IntegerField(default = '1',validators=[MinValueValidator(1), MaxValueValidator(1000)])
     Humidity = models.IntegerField(default = '1',validators=[MinValueValidator(0), MaxValueValidator(100)])
     Harvest_age = models.IntegerField(default = '1', validators=[MinValueValidator(1), MaxValueValidator(10)])
+    Light_req = models.IntegerField(default = '1', validators=[MinValueValidator(1), MaxValueValidator(10)])
     nutrient_amount = models.IntegerField(default = '1',validators=[MinValueValidator(1), MaxValueValidator(10)])
     tempurature = models.IntegerField(default = '33',validators=[MinValueValidator(33), MaxValueValidator(100)])

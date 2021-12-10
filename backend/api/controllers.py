@@ -46,7 +46,7 @@ def home(request):
    """
    Send requests to / to the ember.js clientside app
    """
-   return render_to_response('ember/index.html',
+   return render_to_response('index.html',
                {}, RequestContext(request))
 
 def xss_example(request):

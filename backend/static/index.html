@@ -80,19 +80,20 @@
 			
 		}
     </style>
-    <script src="http://code.jquery.com/jquery-1.5.min.js"></script>
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
     
     <script>
 	console.log("1");
     $(document).ready(function() {
 		console.log("2");
-		button_add_box").click(function() {
-		//$.getJSON('/api/plant').then( result => {
-			//console.log("3");
+		//button_add_box").click(function() {
+		$.getJSON("api/plant/").then( result => {
+			console.log("3");
 			result.forEach( r => {
 				
 				var button = document.createElement("button");
-				var count = 1;
+				var count = r.id;
+				console.log(r);
 				var strong = "Planter " + count
 				button.innerHTML = strong;
 				button.innerHTML += '<img src="/static/plant.png" width="50" height="50"/>';
@@ -100,12 +101,14 @@
 				body.appendChild(button);
 				button.addEventListener ("click", function() {
 				//?id=r
-				window.location.href = "/static/test.html";
+				var Url = "/static/test.html?id=" + r.id;
+				window.location.href = Url;
 				});	
-			//});	
-		//});
-		//document.getElementById("demo").innerHTML = 5 + 6;
+			});	
 		});
+		
+		//document.getElementById("demo").innerHTML = 5 + 6;
+		//});
     
 		 
 		 

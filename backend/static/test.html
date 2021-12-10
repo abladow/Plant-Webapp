@@ -21,8 +21,9 @@
 			}
 
 			.box {
-				width: 500px;
+				width: 600px;
 				height: 100px;
+				font-size: 30px;
 				vertical-align: bottom;
 				margin-top: 20px;
 				margin-left: auto;
@@ -78,37 +79,64 @@
     
     <script>
 	$(document).ready(function() {
-      $("#button_add_box").click(function() {
-		var button = document.createElement("button");
-		var test = document.createElement("div");
-		test.innerHTML = '<img src="plant.png" width="50" height="50"/>&nbsp&nbsp&nbsp';
-		test.innerHTML += '<font size="5">Planter X</font>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
-		test.innerHTML += '<font size="5">Species</font>';
-		test.innerHTML += '<br>';
-		test.innerHTML += '<font size="5">Age</font>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
-		test.innerHTML += '<font size="5">Water:</font>&nbsp&nbsp&nbsp&nbsp';
-		test.innerHTML += '<font size="5">Light:</font>&nbsp&nbsp&nbsp&nbsp';
-		test.innerHTML += '<font size="5">Temp:</font>&nbsp&nbsp&nbsp&nbsp';
-		test.innerHTML += '<font size="5">Humid:</font>&nbsp&nbsp&nbsp&nbsp';
-		$(test).addClass("outlined")
-		const newDiv = document.createElement("div");
-		var body = document.getElementsByTagName("body")[0];
-		body.appendChild(test);
-		button.addEventListener ("click", function() {
-			window.location.href = "test.html";
+      //$("#button_add_box").click(function() {
+		let params = new URLSearchParams(window.location.search);
+		id = params.get('id');
+		//console.log(id);
+		url = "../api/plant/" + id + "/";
+		//console.log(url);
+		$.getJSON(url).then( result => {
+			console.log(result);
+			name = result.name;
+			console.log(name);
+			species = result.species;
+			console.log(species);
+			age = result.age;
+			console.log(age);
+			water = result.water;
+			console.log(water);
+			light = result.Light;
+			console.log(light);
+			temp = result.tempurature;
+			console.log(temp);
+			hum = result.Humidity;
+			console.log(hum);
+			
+			var button = document.createElement("button");
+			var test = document.createElement("div");
+			
+			test.innerHTML = '<img src="plant.png" width="50" height="50"/>&nbsp&nbsp&nbsp';
+			test.innerHTML += 'Planter &nbsp' + id + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
+			test.innerHTML += 'Species &nbsp' + species;
+			test.innerHTML += '<br>';
+			test.innerHTML += 'Age &nbsp' + age + '&nbsp&nbsp';
+			test.innerHTML += 'Water &nbsp' + water + '&nbsp&nbsp';
+			test.innerHTML += 'Light &nbsp' + light + '&nbsp&nbsp';
+			test.innerHTML += 'Temp &nbsp' + temp + '&nbsp&nbsp';
+			test.innerHTML += 'Humid &nbsp' + hum + '&nbsp&nbsp';
+			$(test).addClass("outlined")
+			$(test).addClass("box")
+			const newDiv = document.createElement("div");
+			var body = document.getElementsByTagName("body")[0];
+			body.appendChild(test);
+			button.addEventListener ("click", function() {
+				window.location.href = "test.html";
+			
 
+			});
 		});
 	  
 		
-		
-      });
+		//window.location.search, then parse out ID
+      //});
 
       
     });
     </script>
   </head>
   <body style="background-color:LemonChiffon;" class="center">
-    <h1>Planter X</h1>
+	
+    <h1 id="Planter"></h1>
 
     <div id="container">
       
@@ -119,11 +147,16 @@
      
     <div id="toggles">
       <!---<button id="button_toggle_roundedges">Toggle Rounded Borders</button>--->
-      <button id="button_add_box">Add a New Box</button>
+    
     </div>
 
    
     </div>
+	<script>
+		let params = new URLSearchParams(window.location.search);
+		id = params.get('id');
+		document.getElementById("Planter").innerHTML = 'Planter &nbsp' + id;
+	</script>
 
 
   </body>
