@@ -31,7 +31,7 @@ class ApiKeyAdmin(admin.ModelAdmin):
     list_display = ('owner','key')
 
 class Plant(models.Model):
-    name = models.CharField(max_length=5000, blank=False)
+    name = models.CharField(max_length=5000, blank=False, validators=[RegexValidator(r'^[a-zA-Z0-9]+$')])
     age = models.IntegerField()
     species = models.ForeignKey('Species', on_delete=models.CASCADE)
     water = models.IntegerField(default = '1',validators=[MinValueValidator(1), MaxValueValidator(1000)])
@@ -48,7 +48,7 @@ class Species(models.Model):
         ('Medium','Medium'),
         ('Large','Large'),
     )
-    name = models.CharField(max_length=5000, blank=False)
+    name = models.CharField(max_length=5000, blank=False, validators=[RegexValidator(r'^[a-zA-Z0-9]+$')])
     size = models.CharField(max_length=5000, choices=SIZES)
     water_requirement = models.IntegerField(default = '1',validators=[MinValueValidator(1), MaxValueValidator(1000)])
     Humidity = models.IntegerField(default = '1',validators=[MinValueValidator(0), MaxValueValidator(100)])
