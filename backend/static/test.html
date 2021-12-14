@@ -22,7 +22,7 @@
 
 			.box {
 				width: 600px;
-				height: 100px;
+				height: 300px;
 				font-size: 30px;
 				vertical-align: bottom;
 				margin-top: 20px;
@@ -81,52 +81,64 @@
 	$(document).ready(function() {
       //$("#button_add_box").click(function() {
 		let params = new URLSearchParams(window.location.search);
+		check = Number.isInteger(params.get('id'));
+		if (check = true);
+		{
 		id = params.get('id');
-		//console.log(id);
+		console.log(id);
 		url = "../api/plant/" + id + "/";
 		//console.log(url);
 		$.getJSON(url).then( result => {
-			console.log(result);
-			name = result.name;
-			console.log(name);
-			species = result.species;
-			console.log(species);
-			age = result.age;
-			console.log(age);
-			water = result.water;
-			console.log(water);
-			light = result.Light;
-			console.log(light);
-			temp = result.tempurature;
-			console.log(temp);
-			hum = result.Humidity;
-			console.log(hum);
 			
-			var button = document.createElement("button");
-			var test = document.createElement("div");
-			
-			test.innerHTML = '<img src="plant.png" width="50" height="50"/>&nbsp&nbsp&nbsp';
-			test.innerHTML += 'Planter &nbsp' + id + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
-			test.innerHTML += 'Species &nbsp' + species;
-			test.innerHTML += '<br>';
-			test.innerHTML += 'Age &nbsp' + age + '&nbsp&nbsp';
-			test.innerHTML += 'Water &nbsp' + water + '&nbsp&nbsp';
-			test.innerHTML += 'Light &nbsp' + light + '&nbsp&nbsp';
-			test.innerHTML += 'Temp &nbsp' + temp + '&nbsp&nbsp';
-			test.innerHTML += 'Humid &nbsp' + hum + '&nbsp&nbsp';
-			$(test).addClass("outlined")
-			$(test).addClass("box")
-			const newDiv = document.createElement("div");
-			var body = document.getElementsByTagName("body")[0];
-			body.appendChild(test);
-			button.addEventListener ("click", function() {
-				window.location.href = "test.html";
-			
-
+				console.log(result);
+				name = result.name;
+				species = result.species;
+				age = result.age;
+				water = result.water;
+				light = result.Light;
+				temp = result.tempurature;
+				hum = result.Humidity;
+				tempor = $.getJSON("../api/species/" + species + "/");
+				waterreq = 0;
+				lightreq = 0;
+				tempreq = 0;
+				humreq = 0;
+			$.getJSON("../api/species/" + species + "/").then( spec => {
+					hage = spec.Harvest_age;
+					waterreq = spec.water_requirement;
+					lightreq = spec.Light_req;
+					tempreq = spec.tempurature;
+					humreq = spec.Humidity;	
+				
+				console.log(hage);
+				var button = document.createElement("button");
+				var test = document.createElement("div");
+				
+				test.innerHTML = '<img src="plant.png" width="50" height="50"/>&nbsp&nbsp&nbsp';
+				test.innerHTML += 'Planter &nbsp' + id + '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
+				test.innerHTML += 'Species &nbsp' + species;
+				test.innerHTML += '<br>';
+				test.innerHTML += 'Age &nbsp' + age + '/' + hage + '&nbsp&nbsp';
+				test.innerHTML += '<br>';
+				test.innerHTML += 'Water &nbsp' + water + '/' + waterreq + '&nbsp&nbsp';
+				test.innerHTML += '<br>';
+				test.innerHTML += 'Light &nbsp' + light + '/' + lightreq + '&nbsp&nbsp';
+				test.innerHTML += '<br>';
+				test.innerHTML += 'Temp &nbsp' + temp + '/' + tempreq + '&nbsp&nbsp';
+				test.innerHTML += '<br>';
+				test.innerHTML += 'Humid &nbsp' + hum + '/' + humreq + '&nbsp&nbsp';
+				$(test).addClass("outlined")
+				$(test).addClass("box")
+				const newDiv = document.createElement("div");
+				var body = document.getElementsByTagName("body")[0];
+				body.appendChild(test);
+				button.addEventListener ("click", function() {
+					window.location.href = "test.html";
+				});
 			});
 		});
 	  
-		
+		}
 		//window.location.search, then parse out ID
       //});
 

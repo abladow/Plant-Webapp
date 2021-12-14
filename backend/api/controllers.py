@@ -56,34 +56,6 @@ def xss_example(request):
   return render_to_response('dumb-test-app/index.html',
               {}, RequestContext(request))
 
-class Register(APIView):
-    permission_classes = (AllowAny,)
-
-    def post(self, request, *args, **kwargs):
-        # Login
-        username = request.POST.get('username') #you need to apply validators to these
-        print username
-        password = request.POST.get('password') #you need to apply validators to these
-        email = request.POST.get('email') #you need to apply validators to these
-        gender = request.POST.get('gender') #you need to apply validators to these
-        age = request.POST.get('age') #you need to apply validators to these
-        educationlevel = request.POST.get('educationlevel') #you need to apply validators to these
-        city = request.POST.get('city') #you need to apply validators to these
-        state = request.POST.get('state') #you need to apply validators to these
-
-        print request.POST.get('username')
-        if User.objects.filter(username=username).exists():
-            return Response({'username': 'Username is taken.', 'status': 'error'})
-        elif User.objects.filter(email=email).exists():
-            return Response({'email': 'Email is taken.', 'status': 'error'})
-
-        #especially before you pass them in here
-        newuser = User.objects.create_user(email=email, username=username, password=password)
-        newprofile = Profile(user=newuser, gender=gender, age=age, educationlevel=educationlevel, city=city, state=state)
-        newprofile.save()
-
-        return Response({'status': 'success', 'userid': newuser.id, 'profile': newprofile.id})
-
 class Session(APIView):
     permission_classes = (AllowAny,)
     def form_response(self, isauthenticated, userid, username, error=""):
@@ -149,14 +121,6 @@ class PlantDetail(APIView):
          return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
       except Plant.DoesNotExist:
          raise Http404
-      
-   def delete(self, request, pk, format=None):
-      try:
-         plant = Plant.objects.get(pk=pk)   
-         plant.delete()
-         return Response(status=status.HTTP_204_NO_CONTENT)
-      except Plant.DoesNotExist:
-         raise Http404
 
 class PlantList(APIView):
    def get(self, request, format=None): #handles the read operation for a list of objects
@@ -176,11 +140,11 @@ class SpeciesDetail(APIView):
    def get(self, request, pk, format=None):
       try:
          species = Species.objects.get(pk=pk)
-         serializer = SpeciesSerializer(breed)
+         serializer = SpeciesSerializer(species)
          return Response(serializer.data)
       except Species.DoesNotExist:
          raise Http404
-
+"""
    def put(self, request, pk, format=None):
       try:
          species = Species.objects.get(pk=pk)
@@ -194,69 +158,22 @@ class SpeciesDetail(APIView):
       
    def delete(self, request, pk, format=None):
       try:
-         species = Breed.objects.get(pk=pk)   
+         species = Species.objects.get(pk=pk)   
          species.delete()
          return Response(status=status.HTTP_204_NO_CONTENT)
       except Species.DoesNotExist:
          raise Http404
-      
+"""      
 class SpeciesList(APIView):
    def get(self, request, format=None): #handles the read operation for a list of objects
       species = Species.objects.all()
       serializer = SpeciesSerializer(species, many=True)
       return Response(serializer.data)
-   
+"""   
    def post(self, request, format=None):
       serializer = SpeciesSerializer(data=request.data)
       if serializer.is_valid():
          serializer.save()
          return Response(serializer.data, status=status.HTTP_201_CREATED)
       return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-      
-class ActivateIFTTT(APIView):
-    permission_classes = (AllowAny,)
-    parser_classes = (parsers.JSONParser,parsers.FormParser)
-    renderer_classes = (renderers.JSONRenderer, )
-
-    def post(self,request):
-        print 'REQUEST DATA'
-        print str(request.data)
-
-        eventtype = request.data.get('eventtype')
-        timestamp = int(request.data.get('timestamp'))
-        requestor = request.META['REMOTE_ADDR']
-        api_key = ApiKey.objects.all().first()
-        event_hook = "test"
-
-        print "Creating New event"
-
-        newEvent = Event(
-            eventtype=eventtype,
-            timestamp=datetime.datetime.fromtimestamp(timestamp/1000, pytz.utc),
-            userid=str(api_key.owner),
-            requestor=requestor
-        )
-
-        print newEvent
-        print "Sending Device Event to IFTTT hook: " + str(event_hook)
-
-        #send the new event to IFTTT and print the result
-        event_req = requests.post('https://maker.ifttt.com/trigger/'+str(event_hook)+'/with/key/'+api_key.key, data= {
-            'value1' : timestamp,
-            'value2':  "\""+str(eventtype)+"\"",
-            'value3' : "\""+str(requestor)+"\""
-        })
-        print event_req.text
-
-        #check that the event is safe to store in the databse
-        try:
-            newEvent.clean_fields()
-        except ValidationError as e:
-            print e
-            return Response({'success':False, 'error':e}, status=status.HTTP_400_BAD_REQUEST)
-
-        #log the event in the DB
-        newEvent.save()
-        print 'New Event Logged'
-        return Response({'success': True}, status=status.HTTP_200_OK)
-
+""
