@@ -91,12 +91,12 @@ class Session(APIView):
         # Logout
         logout(request)
         return Response(status=status.HTTP_204_NO_CONTENT)
-
+"""
 class Events(APIView):
     permission_classes = (AllowAny,)
     parser_classes = (parsers.JSONParser,parsers.FormParser)
     renderer_classes = (renderers.JSONRenderer, )
-
+"""
 class PlantDetail(APIView):
    permission_classes = (AllowAny,)
    def get(self, request, pk, format=None):
