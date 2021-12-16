@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 #REST API routes
 router = routers.DefaultRouter(trailing_slash=False)
-
+#url patterns
 urlpatterns = [
     url(r'^session', csrf_exempt(controllers.Session.as_view())),
     url(r'^plant/(?P<pk>\d+)/', csrf_exempt(controllers.PlantDetail.as_view())),

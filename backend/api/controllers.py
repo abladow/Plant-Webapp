@@ -41,21 +41,21 @@ import json, datetime, pytz
 from django.core import serializers
 import requests
 
-
 def home(request):
    """
    Send requests to / to the ember.js clientside app
    """
    return render_to_response('index.html',
                {}, RequestContext(request))
-
+#artifact code from code base
+"""
 def xss_example(request):
-  """
+ 
   Send requests to xss-example/ to the insecure client app
-  """
+  
   return render_to_response('dumb-test-app/index.html',
               {}, RequestContext(request))
-
+"""
 class Session(APIView):
     permission_classes = (AllowAny,)
     def form_response(self, isauthenticated, userid, username, error=""):
@@ -97,6 +97,7 @@ class Events(APIView):
     parser_classes = (parsers.JSONParser,parsers.FormParser)
     renderer_classes = (renderers.JSONRenderer, )
 """
+#handles the HTTP requests of plants when a pk is provided and allows GET and PUT requests
 class PlantDetail(APIView):
    permission_classes = (AllowAny,)
    def get(self, request, pk, format=None):
@@ -121,7 +122,7 @@ class PlantDetail(APIView):
          return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
       except Plant.DoesNotExist:
          raise Http404
-
+#handles the HTTP requests of plants when a pk is not provided and allows GET and POST requests, will list all entries in model
 class PlantList(APIView):
    def get(self, request, format=None): #handles the read operation for a list of objects
       plant = Plant.objects.all()
@@ -134,7 +135,8 @@ class PlantList(APIView):
          serializer.save()
          return Response(serializer.data, status=status.HTTP_201_CREATED)
       return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+   
+#handles the HTTP requests of species when a pk is provided and allows GET requests, only allows GEt since all edits should be handled in admin console
 class SpeciesDetail(APIView):
    permission_classes = (AllowAny,)
    def get(self, request, pk, format=None):
@@ -163,7 +165,8 @@ class SpeciesDetail(APIView):
          return Response(status=status.HTTP_204_NO_CONTENT)
       except Species.DoesNotExist:
          raise Http404
-"""      
+"""
+#handles the HTTP requests of species when a pk is not provided and allows GET requests, only allows GEt since all edits should be handled in admin console, lists all entries
 class SpeciesList(APIView):
    def get(self, request, format=None): #handles the read operation for a list of objects
       species = Species.objects.all()

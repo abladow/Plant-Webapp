@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from api.models import Plant
 from api.models import Species
-
+#serializer the models
 class PlantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plant

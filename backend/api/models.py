@@ -7,6 +7,7 @@ from django.contrib.auth.models import User, Group
 
 from django.contrib import admin
 import base64
+#legacy model code from code I based this off of.
 """
 class Event(models.Model):
     eventtype = models.CharField(max_length=1000, blank=False)
@@ -30,9 +31,10 @@ class ApiKey(models.Model):
 class ApiKeyAdmin(admin.ModelAdmin):
     list_display = ('owner','key')
 """
+# plant model with fields contrained to limit possibility of injection attack by limiting to INt, or a REGEX of alphanumeric chars.
 class Plant(models.Model):
     name = models.CharField(max_length=5000, blank=False, validators=[RegexValidator(r'^[a-zA-Z0-9]+$')])
-    age = models.IntegerField()
+    age = models.IntegerField(default = '1',validators=[MinValueValidator(1), MaxValueValidator(52)])
     species = models.ForeignKey('Species', on_delete=models.CASCADE)
     water = models.IntegerField(default = '1',validators=[MinValueValidator(1), MaxValueValidator(1000)])
     Humidity = models.IntegerField(default = '1',validators=[MinValueValidator(0), MaxValueValidator(100)])
@@ -40,7 +42,7 @@ class Plant(models.Model):
     nutrient_amount = models.IntegerField(default = '1',validators=[MinValueValidator(1), MaxValueValidator(10)])
     tempurature = models.IntegerField(default = '33',validators=[MinValueValidator(33), MaxValueValidator(100)])
     
-
+# species model with fields contrained to limit possibility of injection attack by limiting to INT,a REGEX of alphanumeric chars, or predefined options.
 class Species(models.Model):
     SIZES = (
         ('Tiny','Tiny'),

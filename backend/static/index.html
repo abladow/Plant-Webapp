@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>Lab 2: Exercise 2</title>
+    <title>Plant monitoring app</title>
     <meta name="read-only" content="true">
     <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
     <meta name="author" content="none">
@@ -21,7 +21,6 @@
 			}
 
 			#boxes {
-				<!--- float: left; --->
 				width: 100%;
 			}
 
@@ -56,9 +55,6 @@
 				border-radius: 15px;
 			}
 
-			.cardinal {
-				background-color: #993333;
-			}
 			button {
 				display: block;
 				font-size: 30px;
@@ -83,22 +79,25 @@
     <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
     
     <script>
+	//checkpoint check
 	console.log("1");
     $(document).ready(function() {
 		console.log("2");
-		//button_add_box").click(function() {
+		//gets information from the JSON located at that api directory whihc contains all the plants
 		$.getJSON("api/plant/").then( result => {
 			console.log("3");
+			//loops based off number of entries
 			result.forEach( r => {
-				
 				var button = document.createElement("button");
 				var count = r.id;
 				console.log(r);
 				var strong = "Planter " + count
 				button.innerHTML = strong;
+				//creates button with PK number, could be easily changed to use a name specified in the JSOn file
 				button.innerHTML += '<img src="/static/plant.png" width="50" height="50"/>';
 				var body = document.getElementsByTagName("body")[0];
 				body.appendChild(button);
+				//click action
 				button.addEventListener ("click", function() {
 				//?id=r
 				var Url = "/static/test.html?id=" + r.id;
@@ -107,82 +106,14 @@
 			});	
 		});
 		
-		//document.getElementById("demo").innerHTML = 5 + 6;
-		//});
-    
-		 
-		 
-             //do stuff with r
-             // e.g. r.id
-         
-      /* Step 2: Modifying CSS attributes with .css() */
-      
-
-      /* Step 3: Adding/Removing classes using jQuery's .addClass() and .removeClass()
-      $("#button_toggle_roundedges").click(function() {
-        $(".box").each(function () { 
-          $(this).toggleClass('round-edge');
-        });
-      });
-	  */
-
-	//code section in question
-      //$("#button_add_box").click(function() {
-		
-		//var new_box = document.createElement("div");
-		//const newDiv = document.createElement("div");
-		//const newContent = document.createTextNode("Hi there and greetings!");
-		//button.innerHTML = "Do Something";
-
-		// 2. Append somewhere
-		
-		//newDiv.addClass("outlined")
-		//newDiv.appendChild(newContent);
-		//const currentDiv = document.getElementById("body");
-		//document.body.insertBefore(newDiv, currentDiv);
-		//body.appendChild(new_box);
-		
-		//body.appendChild(newContent);
-
-		// 3. Add event handler
-		
-	  /*
-        var new_box = document.createElement("div");
-        var existingBoxes = $(".box").length;
-		
-        $(new_box).attr("id", "box4");
-		
-        $(new_box).addClass("box")
-		$(new_box).addClass("button")
-        $(new_box).addClass("outlined")
-		
-		$(new_box).addClass("button")
-		$(new_box).addClass("button")
-        $("#boxes").append(new_box);
-		*/
-		
 	});	
       
 
     </script>
   </head>
   <body style="background-color:LemonChiffon;" class="center">
+  <!--picture at top of page-->
     <center><img src="/static/plant.png" class="centerImage" alt="Trulli" width="400" height="333">
 
-    <div id="container">
-      
-      <div id="boxes" class="Center">
-
-        <!---<div id="box1" class="box outlined"></div>--->
-      </div>
-     
-    <div id="toggles">
-      
-      <!---<button id="button_toggle_roundedges">Toggle Rounded Borders</button>
-      <button id="button_add_box">Add a New Box</button>
-	<div id="demo"></div>
-	<script>
-	console.log("1");--->
-	</script>
   </body>
 </html>
