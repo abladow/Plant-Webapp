@@ -29,11 +29,16 @@ docker-compose up
 Current prototype version has admin pages, and pages asociated with the databases
 
 Key webaddresses
-localhost/api/plant/
-localhost/api/plant/<plant#>/
-localhost/api/species/
-localhost/api/species/<species#>/
-locahost/admin
+./api/plant/
+./api/plant/<plant#>/
+./api/species/
+./api/species/<species#>/
+./admin
+
+### Current server address
+http://35.224.151.11/
+
+testing login: admin for both
 
 ## User Stories
 
@@ -58,9 +63,23 @@ locahost/admin
  
 ## Mitigation criteria
 
-* Implement user accounts or allowed IP address to limit who has access
-* implement database backup, and Database update sanity checks
-* require all admins login credentials to be non-standard usernames and passwords 
+* Implement user accounts or allowed IP address to limit who has access - possible through google cloud firewall rules
+* implement database backup, and Database update sanity checks - multiple validators and restrictions on databse and input
+* require all admins login credentials to be non-standard usernames and passwords - current version has a strong password, additioanl policies possible 
+
+## HTTP packet forming
+
+{
+    "id": [pk],
+    "name": [[a-zA-Z0-9] for 1 to 500 chars],
+    "age": [INT 1-52],
+    "water": [INT 1-1000],
+    "Humidity": [INT 0-100],
+    "Light":[INT 1-10],
+    "nutrient_amount": [INT 1-10],
+    "tempurature": [INT 33-100],
+    "species": [Specied FK]
+}
 
 ## Diagrams
 
@@ -68,6 +87,10 @@ locahost/admin
 
 ![Front Page](https://github.com/abladow/Plant-Webapp/blob/master/planterfrontpage.png)
 ![Planter Page](https://github.com/abladow/Plant-Webapp/blob/master/planterpage.png)
+
+**Actual pages**
+![Front Page](https://github.com/abladow/Plant-Webapp/blob/master/images/finalfront.PNG)
+![Planter Pag](https://github.com/abladow/Plant-Webapp/blob/master/images/finalmain.PNG)
 
 **Architecture**
 
